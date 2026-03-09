@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Comment Input</title>
+</head>
+
+<body>
+
+<h2>コメント入力</h2>
+
+<label>Row ID</label>
+<input id="rowid" readonly>
+
+<br><br>
+
+<label>Comment</label>
+<br>
+
+<textarea id="comment" rows="5" cols="40"></textarea>
+
+<br><br>
+
+<button onclick="saveComment()">Save</button>
+
+<script>
+
+// URLからrow_id取得
+const params = new URLSearchParams(window.location.search);
+const rowId = params.get("row_id");
+
+document.getElementById("rowid").value = rowId;
+
+
+// API送信
+function saveComment(){
+
+fetch("https://api.company.com/comment",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+row_id:document.getElementById("rowid").value,
+comment:document.getElementById("comment").value
+
+})
+
+})
+
+.then(res=>alert("Saved"))
+
+}
+
+</script>
+
+</body>
+</html>
